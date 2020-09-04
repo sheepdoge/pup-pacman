@@ -1,0 +1,19 @@
+---
+- block:
+  - name: update pacman cache
+    pacman:
+      update_cache: yes
+
+  - name: install the desired packages
+    pacman:
+      name: "{{ item }}"
+      state: latest
+    with_items: "{{ packages_to_install }}"
+
+
+  - name: uninstall the desired packages
+    pacman:
+      name: "{{ item }}"
+      state: absent
+    with_items: "{{ packages_to_uninstall }}"
+  become: true
